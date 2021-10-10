@@ -56,12 +56,12 @@ window.onload = () => {
     for (let i = 0; i < board.children.length; i++) {
         board.children[i].setAttribute("class", "square")
 
-        board.children[i].addEventListener("mouseenter",()=>{
-            board.children[i].setAttribute("class","square hover")
+        board.children[i].addEventListener("mouseenter", () => {
+            board.children[i].setAttribute("class", "square hover")
         })
 
-        board.children[i].addEventListener("mouseleave",()=>{
-            board.children[i].setAttribute("class","square")
+        board.children[i].addEventListener("mouseleave", () => {
+            board.children[i].setAttribute("class", "square")
         })
 
         board.children[i].addEventListener("click", () => {
@@ -83,15 +83,18 @@ window.onload = () => {
                 }
             }
 
-
-            if (checkIfWin(userXMoves))
-            {
-                // User X Won!!
-            } else if (checkIfWin(userOMoves))
-            {
-                
-                //
+            const status = document.getElementById("status")
+            let didSomeoneWin = false; // Not to repeat setAtribute()
+            if (checkIfWin(userXMoves)) {
+                status.innerHTML = "Congratulations! X is the Winner!"
+                didSomeoneWin = true;
+            } else if (checkIfWin(userOMoves)) {
+                status.innerHTML = "Congratulations! O is the Winner!"
+                didSomeoneWin = true;
             }
+
+            if (didSomeoneWin)
+                status.setAttribute("class","status you-won")
 
         })
     }

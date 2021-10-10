@@ -1,3 +1,27 @@
+const isConsecutiveBy = (arr, n) => {
+    // if the array has consective increases of n three times then return true
+    let prevNum = -1;
+    let consectiveCount = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (prevNum == -1)
+            prevNum = arr[i];
+        else {
+            const diff = arr[i] - prevNum;
+            if (diff == n)
+                consectiveCount++
+            else
+                consectiveCount = 0
+            prevNum = arr[i];
+
+            if (consectiveCount == 2)
+                break;
+        }
+    }
+
+    return consectiveCount >= 2
+}
+
 window.onload = () => {
 
     const userOMoves = [];
@@ -13,33 +37,17 @@ window.onload = () => {
 
     const checkIfWin = (userMoves) => {
 
-
+        console.clear()
         let moves = [...userMoves]
         moves = moves.sort((a, b) => a - b);
-        //console.log(moves)
-        let horizontalScore = 0;
-        let verticalScore = 0;
-        let diagLeftScore = 0;
-        let diagRightScore = 0;
-        let previousMove = -1;
 
+        let won = false;
 
-        moves.forEach((move) => {
-            if (previousMove == - 1)
-                previousMove = move;
-            else {
-                const steps = move - previousMove
-                if (steps == 2) { diagLeftScore++ }
-                if (steps == 4) { diagRightScore++ }
-                if (steps == 1) { horizontalScore++ }
-                if (steps === 3) { verticalScore++ }
+        if (isConsecutiveBy(moves, 1) || isConsecutiveBy(moves, 2) ||
+            isConsecutiveBy(moves, 3) || isConsecutiveBy(moves, 4))
+            won = true;
 
-                previousMove = move;
-            }
-        })
-
-        //console.log({ horizantalScore, verticalScore, diagRightScore, diagLeftScore })
-        return [horizontalScore, verticalScore, diagRightScore, diagLeftScore]
+        return won;
     }
 
     const board = document.getElementById("board");
@@ -66,28 +74,16 @@ window.onload = () => {
                 }
             }
 
-            //console.log("User X", checkIfWin(userXMoves))
-            //console.log("User O", checkIfWin(userOMoves));
 
-            const userXScores = checkIfWin(userXMoves);
-            const userOScores = checkIfWin(userOMoves);
-
-            // Now check if win
-            for (let i = 0; i < userOScores.length; i++) {
-                console.log(userXScores[i], userOScores[i],(userXScores[i] > userOScores[i]) && userXScores[i] >= 2)
-                if ((userXScores[i] > userOScores[i]) && userXScores[i] >= 2) {
-                    console.log("User X Won");
-                    break;
-                }
-                else if ((userOScores[i] > userXScores[i]) && userOScores[i] >= 2)
-                {
-                    console.log("User O Won");
-                    break;
-                }
+            if (checkIfWin(userXMoves))
+            {
+                // User X Won!!
+            } else if (checkIfWin(userOMoves))
+            {
+                
+                //
             }
 
-            // Check if they can place move
-            // Check if user won
         })
     }
 }

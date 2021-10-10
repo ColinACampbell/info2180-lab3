@@ -24,8 +24,8 @@ const isConsecutiveBy = (arr, n) => {
 
 window.onload = () => {
 
-    const userOMoves = [];
-    const userXMoves = [];
+    let userOMoves = [];
+    let userXMoves = [];
     let userXTurn = true; // Used to toggle between user x and user o
 
     const isValidMove = (square) => {
@@ -54,6 +54,7 @@ window.onload = () => {
 
     // Add the class attribute to each square in the board
     for (let i = 0; i < board.children.length; i++) {
+
         board.children[i].setAttribute("class", "square")
 
         board.children[i].addEventListener("mouseenter", () => {
@@ -94,8 +95,17 @@ window.onload = () => {
             }
 
             if (didSomeoneWin)
-                status.setAttribute("class","status you-won")
+                status.setAttribute("class", "status you-won")
 
+            // Clear the game
+            const btns = document.getElementsByClassName("btn")
+            btns[0].addEventListener("click", () => {
+                board.children[i].innerHTML = ""
+                userOMoves = [];
+                userXMoves = [];
+                status.setAttribute("class","status")
+                status.innerHTML = "Move your mouse over a square and click to play an X or an O."
+            })
         })
     }
 }

@@ -55,6 +55,15 @@ window.onload = () => {
     // Add the class attribute to each square in the board
     for (let i = 0; i < board.children.length; i++) {
         board.children[i].setAttribute("class", "square")
+
+        board.children[i].addEventListener("mouseenter",()=>{
+            board.children[i].setAttribute("class","square hover")
+        })
+
+        board.children[i].addEventListener("mouseleave",()=>{
+            board.children[i].setAttribute("class","square")
+        })
+
         board.children[i].addEventListener("click", () => {
             console.clear();
             if (userXTurn) {

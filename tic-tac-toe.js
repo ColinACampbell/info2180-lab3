@@ -1,3 +1,14 @@
+const possibleWins = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7]
+];
+
 const isConsecutiveBy = (arr, n) => {
     // if the array has consective increases of n three times then return true
     let prevNum = -1;
@@ -41,13 +52,16 @@ window.onload = () => {
         let moves = [...userMoves]
         moves = moves.sort((a, b) => a - b);
 
-        let won = false;
 
-        if (isConsecutiveBy(moves, 1) || isConsecutiveBy(moves, 2) ||
-            isConsecutiveBy(moves, 3) || isConsecutiveBy(moves, 4))
-            won = true;
+        const didUserWin = (arr, target) => {
+            return target.every(v => arr.includes(v))
+        };
+    
+        for (let i = 0; i < possibleWins.length; i ++)
+            if (didUserWin(moves,possibleWins[i]))
+                return true
 
-        return won;
+        return false;
     }
 
     const board = document.getElementById("board");

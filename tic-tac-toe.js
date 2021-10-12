@@ -58,11 +58,11 @@ window.onload = () => {
         board.children[i].setAttribute("class", "square")
 
         board.children[i].addEventListener("mouseenter", () => {
-            board.children[i].setAttribute("class", "square hover")
+            board.children[i].classList.add("hover")//setAttribute("class", "square hover")
         })
 
         board.children[i].addEventListener("mouseleave", () => {
-            board.children[i].setAttribute("class", "square")
+            board.children[i].classList.remove("hover")
         })
 
         board.children[i].addEventListener("click", () => {
@@ -72,6 +72,7 @@ window.onload = () => {
                     userXMoves.push(i + 1);
 
                     board.children[i].innerHTML = "X";
+                    board.children[i].classList.add("X")
                     userXTurn = !userXTurn;
                 }
 
@@ -80,7 +81,7 @@ window.onload = () => {
                     userOMoves.push(i + 1);
                     userXTurn = !userXTurn;
                     board.children[i].innerHTML = "O";
-
+                    board.children[i].classList.add("O")
                 }
             }
 

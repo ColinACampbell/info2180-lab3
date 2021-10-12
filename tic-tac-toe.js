@@ -9,30 +9,6 @@ const possibleWins = [
     [3, 5, 7]
 ];
 
-const isConsecutiveBy = (arr, n) => {
-    // if the array has consective increases of n three times then return true
-    let prevNum = -1;
-    let consectiveCount = 0;
-
-    for (let i = 0; i < arr.length; i++) {
-        if (prevNum == -1)
-            prevNum = arr[i];
-        else {
-            const diff = arr[i] - prevNum;
-            if (diff == n)
-                consectiveCount++
-            else
-                consectiveCount = 0
-            prevNum = arr[i];
-
-            if (consectiveCount == 2)
-                break;
-        }
-    }
-
-    return consectiveCount >= 2
-}
-
 window.onload = () => {
 
     let userOMoves = [];
